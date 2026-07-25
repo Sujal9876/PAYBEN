@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="hero-section mb-4">
+
+        <div>
+
+            <span class="badge bg-light text-primary px-3 py-2 mb-3">
+
+                Payment History
+
+            </span>
+
+            <h1 class="fw-bold">
+
+                Transaction History
+
+            </h1>
+
+            <p>
+
+                View all your recharges and utility bill payments in one place.
+
+            </p>
+
+        </div>
+
+        <div class="hero-wallet">
+
+            <small>Total Services</small>
+
+            <h1>4</h1>
+
+            <hr>
+
+            <h5>Recharge & Bills</h5>
+
+        </div>
+
+    </div>
+
+    <!-- Recharge -->
+
+    <div class="card shadow-lg border-0 mb-5">
+
+        <div class="card-header bg-primary text-white py-3">
+
+            <h4 class="mb-0">
+
+                <i class="fa-solid fa-mobile-screen-button me-2"></i>
+
+                Mobile Recharge
+
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Mobile Number</th>
+                        <th>Operator</th>
+                        <th>Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for recharge in recharges %}
+
+                    <tr>
+
+                        <td>{{ recharge.mobile_number }}</td>
+
+                        <td>{{ recharge.operator }}</td>
+
+                        <td>
+
+                            <span class="badge bg-success fs-6">
+
+                                ₹{{ recharge.amount }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center text-muted py-4">
+
+                            No recharge history found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Electricity -->
+
+    <div class="card shadow-lg border-0 mb-5">
+
+        <div class="card-header bg-warning text-dark py-3">
+
+            <h4 class="mb-0">
+
+                <i class="fa-solid fa-bolt me-2"></i>
+
+                Electricity Bills
+
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Consumer No.</th>
+                        <th>Board</th>
+                        <th>Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for bill in electricity %}
+
+                    <tr>
+
+                        <td>{{ bill.consumer_number }}</td>
+
+                        <td>{{ bill.board }}</td>
+
+                        <td>
+
+                            <span class="badge bg-warning text-dark fs-6">
+
+                                ₹{{ bill.amount }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center text-muted py-4">
+
+                            No electricity payments found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Water -->
+
+    <div class="card shadow-lg border-0 mb-5">
+
+        <div class="card-header bg-info text-white py-3">
+
+            <h4 class="mb-0">
+
+                <i class="fa-solid fa-faucet-drip me-2"></i>
+
+                Water Bills
+
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Consumer No.</th>
+                        <th>Provider</th>
+                        <th>Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for bill in water %}
+
+                    <tr>
+
+                        <td>{{ bill.consumer_number }}</td>
+
+                        <td>{{ bill.provider }}</td>
+
+                        <td>
+
+                            <span class="badge bg-info fs-6">
+
+                                ₹{{ bill.amount }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center text-muted py-4">
+
+                            No water bill payments found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Gas -->
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-danger text-white py-3">
+
+            <h4 class="mb-0">
+
+                <i class="fa-solid fa-fire-flame-curved me-2"></i>
+
+                Gas Bills
+
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Consumer No.</th>
+                        <th>Provider</th>
+                        <th>Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for bill in gas %}
+
+                    <tr>
+
+                        <td>{{ bill.consumer_number }}</td>
+
+                        <td>{{ bill.provider }}</td>
+
+                        <td>
+
+                            <span class="badge bg-danger fs-6">
+
+                                ₹{{ bill.amount }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center text-muted py-4">
+
+                            No gas bill payments found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

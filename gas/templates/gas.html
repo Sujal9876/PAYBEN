@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row g-4">
+
+        <!-- Payment Form -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 p-5">
+
+                <div class="text-center mb-4">
+
+                    <div class="service-icon gas mx-auto mb-3">
+
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+
+                    </div>
+
+                    <h2 class="fw-bold">
+
+                        Gas Bill Payment
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Pay your gas bill instantly and securely using your PayBen wallet.
+
+                    </p>
+
+                </div>
+
+                {% if error %}
+
+                <div class="alert alert-danger">
+
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>
+
+                    {{ error }}
+
+                </div>
+
+                {% endif %}
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fa-solid fa-building me-2"></i>
+
+                            Gas Provider
+
+                        </label>
+
+                        {{ form.provider }}
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fa-solid fa-hashtag me-2"></i>
+
+                            Consumer Number
+
+                        </label>
+
+                        {{ form.consumer_number }}
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fa-solid fa-indian-rupee-sign me-2"></i>
+
+                            Bill Amount
+
+                        </label>
+
+                        {{ form.amount }}
+
+                    </div>
+
+                    <button type="submit" class="btn btn-danger btn-lg w-100">
+
+                        <i class="fa-solid fa-fire me-2"></i>
+
+                        Pay Gas Bill
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Right Section -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 p-4 mb-4">
+
+                <h4 class="fw-bold">
+
+                    Why Pay with PayBen?
+
+                </h4>
+
+                <ul class="list-unstyled mt-3">
+
+                    <li class="mb-3">
+
+                        🔥 Instant Payment
+
+                    </li>
+
+                    <li class="mb-3">
+
+                        🔒 Safe & Secure
+
+                    </li>
+
+                    <li class="mb-3">
+
+                        💳 Wallet Powered
+
+                    </li>
+
+                    <li>
+
+                        📜 Transaction History
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="card shadow-lg border-0 p-4">
+
+                <h4 class="fw-bold">
+
+                    Payment Tips
+
+                </h4>
+
+                <p class="text-muted mb-2">
+
+                    • Verify your consumer number before payment.
+
+                </p>
+
+                <p class="text-muted mb-2">
+
+                    • Maintain sufficient wallet balance.
+
+                </p>
+
+                <p class="text-muted">
+
+                    • Payments are completed instantly.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

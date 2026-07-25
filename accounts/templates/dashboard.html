@@ -1,0 +1,626 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<div class="container-fluid">
+
+    <!-- HERO SECTION -->
+
+    <div class="hero-section">
+
+        <div class="hero-left">
+
+            <span class="badge bg-light text-primary px-3 py-2 mb-3">
+                Welcome Back 👋
+            </span>
+
+            <h1 class="display-5 fw-bold">
+                Hi, {{ request.user.username }}
+            </h1>
+
+            <p class="lead mt-3 text-light">
+                Manage your wallet, mobile recharge and utility bill payments
+                from one secure dashboard.
+            </p>
+
+            <div class="mt-4">
+
+                <a href="/wallet/add/" class="btn btn-light btn-lg me-3">
+                    <i class="fa-solid fa-wallet"></i>
+                    Add Money
+                </a>
+
+                <a href="/recharge/" class="btn btn-warning btn-lg">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    Recharge
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-wallet">
+
+            <small class="text-uppercase">
+                Available Balance
+            </small>
+
+            <h1 class="display-4 fw-bold mt-2">
+                ₹{{ wallet.balance }}
+            </h1>
+
+            <hr>
+
+            <div class="row text-center">
+
+                <div class="col-6">
+
+                    <h6>Total Recharges</h6>
+
+                    <h3>{{ recharge_count }}</h3>
+
+                </div>
+
+                <div class="col-6">
+
+                    <h6>Total Bills</h6>
+
+                    <h3>
+                        {{ electricity_count|add:water_count|add:gas_count }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DASHBOARD OVERVIEW -->
+
+    <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                Dashboard Overview
+            </h2>
+
+            <p class="text-secondary mb-0">
+                A quick summary of your account activity.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="row g-4">
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card">
+
+                <div class="stat-icon bg-success">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                </div>
+
+                <span class="text-secondary">
+                    Wallet Balance
+                </span>
+
+                <h2 class="mt-2">
+                    ₹{{ wallet.balance }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card">
+
+                <div class="stat-icon bg-primary">
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                </div>
+
+                <span class="text-secondary">
+                    Mobile Recharges
+                </span>
+
+                <h2 class="mt-2">
+
+                    {{ recharge_count }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card">
+
+                <div class="stat-icon bg-warning">
+
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+
+                </div>
+
+                <span class="text-secondary">
+                    Bills Paid
+                </span>
+
+                <h2 class="mt-2">
+
+                    {{ electricity_count|add:water_count|add:gas_count }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card">
+
+                <div class="stat-icon bg-danger">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <span class="text-secondary">
+                    Success Rate
+                </span>
+
+                <h2 class="mt-2">
+
+                    98%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ANALYTICS -->
+
+    <div class="row mt-5">
+
+        <div class="col-lg-8">
+
+            <div class="card p-4 analytics-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <h3 class="fw-bold">
+
+                            Monthly Spending
+
+                        </h3>
+
+                        <small class="text-secondary">
+
+                            Last 6 months overview
+
+                        </small>
+
+                    </div>
+
+                    <span class="badge bg-primary">
+
+                        Analytics
+
+                    </span>
+
+                </div>
+
+                <div class="chart-container">
+    <canvas id="expenseChart"></canvas>
+</div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card p-4 h-100">
+
+                <h3 class="fw-bold mb-4">
+
+                    Account Summary
+
+                </h3>
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>Total Wallet</span>
+
+                    <strong>₹{{ wallet.balance }}</strong>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>Recharges</span>
+
+                    <strong>{{ recharge_count }}</strong>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>Utility Bills</span>
+
+                    <strong>
+
+                        {{ electricity_count|add:water_count|add:gas_count }}
+
+                    </strong>
+
+                </div>
+
+                <hr>
+
+                <h6 class="mb-2">
+
+                    Monthly Goal
+
+                </h6>
+
+                <div class="progress mb-4" style="height:12px;">
+
+                    <div class="progress-bar bg-success"
+                         style="width:78%;">
+
+                    </div>
+
+                </div>
+
+                <h6 class="mb-2">
+
+                    Payment Success
+
+                </h6>
+
+                <div class="progress" style="height:12px;">
+
+                    <div class="progress-bar bg-primary"
+                         style="width:98%;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= QUICK SERVICES ================= -->
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+            Quick Services
+        </h2>
+
+        <p class="text-secondary mb-0">
+            Access your most-used services instantly.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-3 col-md-6">
+        <a href="/recharge/" class="text-decoration-none">
+            <div class="card service-card">
+                <div class="service-icon recharge">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+
+                <h4>Recharge</h4>
+
+                <p class="text-muted">
+                    Recharge any prepaid mobile instantly.
+                </p>
+
+                <span class="btn btn-primary w-100">
+                    Open Service
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <a href="/electricity/" class="text-decoration-none">
+            <div class="card service-card">
+                <div class="service-icon electricity">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+
+                <h4>Electricity</h4>
+
+                <p class="text-muted">
+                    Pay electricity bills securely.
+                </p>
+
+                <span class="btn btn-warning w-100">
+                    Open Service
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <a href="/water/" class="text-decoration-none">
+            <div class="card service-card">
+                <div class="service-icon water">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <h4>Water</h4>
+
+                <p class="text-muted">
+                    Water bill payment in seconds.
+                </p>
+
+                <span class="btn btn-info text-white w-100">
+                    Open Service
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <a href="/gas/" class="text-decoration-none">
+            <div class="card service-card">
+                <div class="service-icon gas">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <h4>Gas</h4>
+
+                <p class="text-muted">
+                    LPG & Gas bill payments.
+                </p>
+
+                <span class="btn btn-danger w-100">
+                    Open Service
+                </span>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ================= RECENT ACTIVITY ================= -->
+
+<div class="card recent-card mt-5">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h3 class="fw-bold">
+
+                <i class="fa-solid fa-clock-rotate-left me-2"></i>
+
+                Recent Activity
+
+            </h3>
+
+            <a href="/transactions/" class="btn btn-outline-primary">
+
+                View All
+
+            </a>
+
+        </div>
+
+        {% if recent_transactions %}
+
+            {% for transaction in recent_transactions %}
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="service-icon recharge me-3">
+
+                        <i class="fa-solid fa-money-bill-wave"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h6 class="mb-1">
+
+                            Payment Successful
+
+                        </h6>
+
+                        <small class="text-muted">
+
+                            {{ transaction.created_at }}
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="text-end">
+
+                    <h5 class="mb-0 text-success">
+
+                        ₹{{ transaction.amount }}
+
+                    </h5>
+
+                    <small class="badge bg-success">
+
+                        Success
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="fa-solid fa-wallet fa-3x text-secondary mb-3"></i>
+
+                <h4>
+
+                    No Transactions Yet
+
+                </h4>
+
+                <p class="text-muted">
+
+                    Start using PayBen to see your activity here.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="mt-5">
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body text-center py-4">
+
+            <h5 class="fw-bold mb-2">
+                💳 PayBen
+            </h5>
+
+            <p class="text-muted mb-2">
+                Secure Digital Payments • Mobile Recharge • Utility Bills • Wallet
+            </p>
+
+            <small class="text-secondary">
+                © 2026 PayBen. Built with Django, Bootstrap & ❤️
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const canvas = document.getElementById("expenseChart");
+
+    if (!canvas) return;
+
+    
+
+new Chart(canvas,{
+
+        type: "line",
+
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+
+            datasets: [{
+                data: [500,1200,700,1500,900,2200],
+
+                borderColor: "#2563eb",
+
+                backgroundColor: "rgba(37,99,235,0.12)",
+
+                fill: true,
+
+                tension: 0.4,
+
+                borderWidth: 3,
+
+                pointRadius: 4
+            }]
+        },
+
+        options: {
+
+            animation: false,
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

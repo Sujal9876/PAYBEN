@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        📜 Recharge History
+    </h2>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Mobile</th>
+                <th>Operator</th>
+                <th>Amount</th>
+                <th>Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for recharge in recharges %}
+
+        <tr>
+
+            <td>{{ recharge.mobile_number }}</td>
+
+            <td>{{ recharge.operator }}</td>
+
+            <td>₹{{ recharge.amount }}</td>
+
+            <td>{{ recharge.created_at }}</td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="4" class="text-center">
+
+                No Recharge Found
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

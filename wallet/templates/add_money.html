@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-lg border-0 p-5">
+
+                <div class="text-center mb-4">
+
+                    <div class="service-icon wallet mx-auto mb-3">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                    </div>
+
+                    <h2 class="fw-bold">
+
+                        Add Money to Wallet
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Add funds securely and use your wallet for instant
+                        payments and recharges.
+
+                    </p>
+
+                </div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fa-solid fa-indian-rupee-sign me-2"></i>
+
+                            Amount
+
+                        </label>
+
+                        {{ form.amount }}
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-lg w-100">
+
+                        <i class="fa-solid fa-plus me-2"></i>
+
+                        Add Money
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-lg border-0 p-4">
+
+                <h4 class="fw-bold mb-3">
+
+                    Why use Wallet?
+
+                </h4>
+
+                <ul class="list-unstyled">
+
+                    <li class="mb-3">
+
+                        ✅ Instant Recharge
+
+                    </li>
+
+                    <li class="mb-3">
+
+                        ✅ Electricity Bills
+
+                    </li>
+
+                    <li class="mb-3">
+
+                        ✅ Water Bills
+
+                    </li>
+
+                    <li class="mb-3">
+
+                        ✅ Gas Payments
+
+                    </li>
+
+                    <li>
+
+                        ✅ Secure Transactions
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
