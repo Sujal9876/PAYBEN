@@ -7,7 +7,7 @@ from .models import ElectricityBill
 from wallet.models import Wallet
 
 
-@login_required
+@login_required(login_url="/login/")
 def electricity(request):
 
     wallet, created = Wallet.objects.get_or_create(
@@ -21,11 +21,9 @@ def electricity(request):
         if form.is_valid():
 
             bill = form.save(commit=False)
-
             bill.user = request.user
 
             if wallet.balance < bill.amount:
-
                 return render(
                     request,
                     "electricity.html",
@@ -43,7 +41,6 @@ def electricity(request):
             return redirect("/dashboard/")
 
     else:
-
         form = ElectricityBillForm()
 
     return render(
