@@ -6,7 +6,7 @@ from .models import Recharge
 from wallet.models import Wallet
 
 
-@login_required
+@login_required(login_url="/login/")
 def recharge(request):
 
     wallet, created = Wallet.objects.get_or_create(
@@ -58,7 +58,7 @@ def recharge(request):
 )
 
 
-@login_required
+@login_required(login_url="/login/")
 def recharge_history(request):
 
     recharges = Recharge.objects.filter(

@@ -7,7 +7,7 @@ from water.models import WaterBill
 from gas.models import GasBill
 
 
-@login_required
+@login_required(login_url="/login/")
 def transactions(request):
 
     recharge_list = Recharge.objects.filter(

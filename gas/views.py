@@ -6,7 +6,7 @@ from .models import GasBill
 from wallet.models import Wallet
 
 
-@login_required
+@login_required(login_url="/login/")
 def gas(request):
 
     wallet, created = Wallet.objects.get_or_create(

@@ -5,7 +5,7 @@ from .models import Wallet
 from .forms import AddMoneyForm
 
 
-@login_required
+@login_required(login_url="/login/")
 def wallet(request):
 
     wallet, created = Wallet.objects.get_or_create(
@@ -21,7 +21,7 @@ def wallet(request):
     )
 
 
-@login_required
+@login_required(login_url="/login/")
 def add_money(request):
 
     wallet, created = Wallet.objects.get_or_create(

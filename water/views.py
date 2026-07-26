@@ -6,7 +6,7 @@ from .models import WaterBill
 from wallet.models import Wallet
 
 
-@login_required
+@login_required(login_url="/login/")
 def water(request):
 
     wallet, created = Wallet.objects.get_or_create(
