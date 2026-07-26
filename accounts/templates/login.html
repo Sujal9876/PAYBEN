@@ -17,20 +17,24 @@
         {% csrf_token %}
 
         <div class="mb-3">
-            <label>Username</label>
+            <label for="username" class="form-label">Username</label>
             <input
                 type="text"
+                id="username"
                 name="username"
                 class="form-control"
+                placeholder="Enter your username"
                 required>
         </div>
 
         <div class="mb-3">
-            <label>Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
                 type="password"
+                id="password"
                 name="password"
                 class="form-control"
+                placeholder="Enter your password"
                 required>
         </div>
 
@@ -40,11 +44,16 @@
 
     </form>
 
-    <div class="text-center mt-3">
-        <p>
+    <hr>
+
+    <div class="text-center">
+        <p class="mb-2">
             Don't have an account?
-            <a href="/register/">Register here</a>
         </p>
+
+        <a href="/register/" class="btn btn-success w-100">
+            Create New Account
+        </a>
     </div>
 
 </div>
