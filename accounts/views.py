@@ -1,6 +1,6 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from itertools import chain
 from operator import attrgetter
@@ -28,17 +28,24 @@ def register(request):
             user.save()
 
             return redirect("/login/")
+        else:
+            return render(request, "register.html", {
+                "form": form
+            })
 
     else:
         form = RegisterForm()
 
-    return render(request, "register.html", {"form": form})
+    return render(request, "register.html", {
+        "form": form
+    })
 
 
 def login_user(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(
             request,
@@ -48,6 +55,12 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
+
+            next_url = request.GET.get("next")
+
+            if next_url:
+                return redirect(next_url)
+
             return redirect("/dashboard/")
 
         return render(request, "login.html", {
